@@ -1,10 +1,10 @@
 class Agente:	
-	def __init__(self, ip, nombre, comunidad, estado, interfacesactivas, version, puerto): 
+	def __init__(self, ip, nombre, comunidad, estado, version, puerto): 
 		self.ip =ip
 		self.nombre =nombre
 		self.comunidad =comunidad
 		self.estado =estado
-		self.interfacesactivas =interfacesactivas
+		self.interfacesactivas =-1
 		self.version =version
 		self.puerto =puerto
 
