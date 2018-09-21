@@ -58,15 +58,4 @@ class Agente:
 		t2.start()
 
 
-"""Salomon =Agente('localhost', 'Salomon', 'Stefan10', True, 1, 161)
-
-print (Salomon.getIp())
-print (Salomon.getNombre())
-print (Salomon.getComunidad())
-print (Salomon.getEstado())
-print (Salomon.getInterfacesactivas())
-print (Salomon.getVersion())
-print (Salomon.getPuerto())
-
-Salomon.monitorear()"""
 
