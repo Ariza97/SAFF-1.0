@@ -16,37 +16,39 @@ class Agente:
 	def getIp(self):
 		return self.ip
 	def setIp(self, ip):
-		self.ip =ip;
+		self.ip =ip
 
 	def getNombre(self):
 		return self.nombre
-	def setIp(self, nombre):
-		self.nombre =nombre;
+
+	def setNombre(self, nombre):
+		self.nombre =nombre
 
 	def getComunidad(self):
 		return self.comunidad
 	def setComunidad(self, comunidad):
-		self.comunidad =comunidad;
+		self.comunidad =comunidad
 
 	def getEstado(self):
 		return self.estado
 	def setEstado(self, estado):
-		self.estado =estado;
+		self.estado =estado
 
 	def getInterfacesactivas(self):
 		return self.interfacesactivas
 	def setInterfacesactivas(self, interfacesactivas):
-		self.interfacesactivas =interfacesactivas;
+		self.interfacesactivas =interfacesactivas
 
 	def getVersion(self):
 		return self.version
-	def setVersions(self, interfacesactivas):
-		self.version =version;
+
+	def setInterfaces(self, interfacesactivas):
+		self.version = interfacesactivas
 
 	def getPuerto(self):
 		return self.puerto
 	def setPuerto(self, puerto):
-		self.puerto =puerto;
+		self.puerto =puerto
 
 	def monitorear(self):
 		archivoRrd()
@@ -56,10 +58,7 @@ class Agente:
 		t2.start()
 
 
-
-
-
-Salomon =Agente('localhost', 'Salomon', 'Stefan10', True, 1, 161)
+"""Salomon =Agente('localhost', 'Salomon', 'Stefan10', True, 1, 161)
 
 print (Salomon.getIp())
 print (Salomon.getNombre())
@@ -69,5 +68,5 @@ print (Salomon.getInterfacesactivas())
 print (Salomon.getVersion())
 print (Salomon.getPuerto())
 
-Salomon.monitorear()
+Salomon.monitorear()"""
 
