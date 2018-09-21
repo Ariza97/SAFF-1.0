@@ -22,13 +22,13 @@ class Admin:
         self.password = password
 
     #Dar de alta Agente (retorna booleano)
-    def agregarAHost(self, ip, nombre, comunidad):
+    def agregarAHostIP(self, ip, nombre, comunidad, puerto):
         #Crear agente
         #Agregar agente a array
         print('Agregado')
 
     #Dar de alta Agente (retorna booleano)
-    def agregarAHost(self, nombre, comunidad):
+    def agregarAHost(self, nombre, comunidad, puerto):
         #Crear agente
         #Agregar agente a array
         print('Agregado')
