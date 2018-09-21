@@ -140,9 +140,23 @@ class Admin:
 
 
     #Dar de baja agente (retorna booleano)
-    def eliminarDeHost(self, nombre):
-        #eliminar agente de array
-        print('Eliminado')
+        def eliminarDeHost(self, nombre):
+            archivo = open('/etc/hosts', 'r')
+            contenido = archivo.readlines()
+            cadenaCopia = ""
+            
+            #Busca el nombre para eliminarlo
+            for cadena in contenido:
+                if cadena.find(nombre) == -1: #Cuando encuentre el nombre no lo copia
+                    cadenaCopia += cadena
+            
+            archivo.close()
+            archivo = open('/etc/hosts', 'w')
+            archivo.write(cadenaCopia)
+            archivo.close()
+
+            return True
+
 
 """
 a1 = Admin('stefan', '1234')
