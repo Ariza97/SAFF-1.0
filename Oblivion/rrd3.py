@@ -59,4 +59,4 @@ def crearGraficas():
     
     time.sleep(10)
 
-crearGraficas()
+#crearGraficas()

@@ -53,7 +53,6 @@ class Agente:
 		t1 = threading.Thread(target = realizarConsultas, args = (self.comunidad, self.ip, self.puerto))
 		t2 = threading.Thread(target = crearGraficas)
 		t1.start()
-		print('inicia')
 		t2.start()
 
 

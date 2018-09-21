@@ -49,4 +49,4 @@ def archivoRrd():
        if ret:
            print (rrdtool.error())
 
-archivoRrd()
+#archivoRrd()

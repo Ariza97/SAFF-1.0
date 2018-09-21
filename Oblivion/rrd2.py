@@ -88,4 +88,4 @@ def realizarConsultas(comunidad, ip, puerto):
         print (rrdtool.error())
         time.sleep(300)
 
-realizarConsultas('Stefan10', 'localhost', 161)
+#realizarConsultas('Stefan10', 'localhost', 161)
