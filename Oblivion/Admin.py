@@ -148,7 +148,9 @@ class Admin:
         else:
             versionEnString = "-v2c"
 
-        datos = subprocess.check_output('snmpstatus '+ versionEnString +' -c ' + comunidad + ' ' + ip + ' ', shell = True)
+        print("Comunidad: " + comunidad + " VersionString: " + versionEnString)
+
+        datos = subprocess.check_output('snmpstatus ' + versionEnString +' -c' + comunidad + ' ' + ip + ' ', shell = True)
         cadena = str(datos)
 
         #Convertirlos a un array
@@ -165,7 +167,7 @@ class Admin:
 
 
             if "Interfaces" in arreglo[i]:
-                totalInterfaces = int(arreglo[i+1][:2])
+                totalInterfaces = int(arreglo[i+1][:1])
 
             #Obtener el numero total de interfaces
             elif i+1 != len(arreglo):
@@ -174,12 +176,14 @@ class Admin:
                     print("Interfaces activas: " + str(totalInterfaces))
             
         #Obtener la localizacion fisica
-        arrayDir = listaagentes.consultaSNMP("ASR", "192.168.43.212", "1.3.6.1.2.1.1.6.0", 161).split(' ')
+        arrayDir = listaagentes.consultaSNMP(comunidad, ip, "1.3.6.1.2.1.1.6.0", puerto).split(' ')
         print("La localizacion fisica es: " + arrayDir[len(arrayDir) - 1])
 
         #Obtener la informacion de contacto
-        arrayContactInfo = listaagentes.consultaSNMP("ASR", "192.168.43.212", "1.3.6.1.2.1.1.4.0", 161).split(' ')
+        arrayContactInfo = listaagentes.consultaSNMP(comunidad, ip, "1.3.6.1.2.1.1.4.0", puerto).split(' ')
         print("La localizacion fisica es: " + arrayContactInfo[len(arrayContactInfo) - 1])
+
+        listaagentes.listaAgentes[0].monitorear()
 
     #Dar de baja agente (retorna booleano)
         def eliminarDeHost(self, nombre):

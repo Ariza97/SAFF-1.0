@@ -12,11 +12,11 @@ def main():
     administrador = Admin('root', 'root')
 
     #Agregar un agente
-    if administrador.agregarAHostIP("192.168.43.212", "Dehesa", "ASR", 0, 2, 161):
-        print("Se agrego el agente 192.168.0.17")
+    if administrador.agregarAHostIP("localhost", "Stefan", "Stefan10", 1, 2, 161):
+        print("Se agrego el agente 192.168.0.12")
 
 
     #Monitorear 
-    administrador.obtenerEstadoDispositivo("Dehesa", "ASR", 1, 2, 161, "192.168.43.212" )
+    administrador.obtenerEstadoDispositivo("Stefan", "Stefan10", 1, 1, 161, "localhost" )
 
 main()
