@@ -2,58 +2,69 @@ import sys
 import rrdtool
 import time
 
-def crearGraficas():
+def crearGraficas(numero):
   
   tiempo_actual = int(time.time())
   tiempo_final = tiempo_actual - 86400
   tiempo_inicial = tiempo_final - 25920000
 
+  arch1Rrd = 'octets' + str(numero) + '.rrd'
+  arch2Rrd = 'ipInReceives' + str(numero) + '.rrd'
+  arch3Rrd = 'icmpMsgs' + str(numero) + '.rrd'
+  arch4Rrd = 'tcpSegs' + str(numero) + '.rrd'
+  arch5Rrd = 'udpDatagrams' + str(numero) + '.rrd'
+  arch1Png = 'octets' + str(numero) + '.png'
+  arch2Png = 'ipInReceives' + str(numero) + '.png'
+  arch3Png = 'icmpMsgs' + str(numero) + '.png'
+  arch4Png = 'tcpSegs' + str(numero) + '.png'
+  arch5Png = 'udpDatagrams' + str(numero) + '.png'
+
   while 1:
     # Tráfico interfaces
-    ret = rrdtool.graph( "octets.png",
+    ret = rrdtool.graph( arch1Png,
       "--start",'1538358221',
   #    "--end","N",
       "--vertical-label=Bytes/s",
-      "DEF:inoctets=octets.rrd:inoctets:AVERAGE",
-      "DEF:outoctets=octets.rrd:outoctets:AVERAGE",
+      "DEF:inoctets=" + arch1Rrd + ":inoctets:AVERAGE",
+      "DEF:outoctets=" + arch1Rrd + ":outoctets:AVERAGE",
       "AREA:inoctets#C42121:In traffic",
       "LINE1:outoctets#F2FA0B:Out traffic\r")
 
     # Ip In Receives
-    ret = rrdtool.graph( "ipInReceives.png",
+    ret = rrdtool.graph( arch2Png,
       "--start",'1538358221',
   #    "--end","N",
       "--vertical-label=Bytes/s",
-      "DEF:inIpReceives=ipInReceives.rrd:inIpReceives:AVERAGE",
+      "DEF:inIpReceives=" + arch2Rrd + ":inIpReceives:AVERAGE",
       "AREA:inIpReceives#00FF00:IP In Receives\r")
 
     # ICMP Msgs entrada/salida
-    ret = rrdtool.graph( "icmpInMsgs.png",
+    ret = rrdtool.graph( arch3Png,
       "--start",'1538358221',
   #    "--end","N",
       "--vertical-label=Bytes/s",
-      "DEF:inMsgs=icmpMsgs.rrd:inMsgs:AVERAGE",
-      "DEF:outMsgs=icmpMsgs.rrd:outMsgs:AVERAGE",
+      "DEF:inMsgs=" + arch3Rrd + ":inMsgs:AVERAGE",
+      "DEF:outMsgs=" + arch3Rrd + ":outMsgs:AVERAGE",
       "AREA:inMsgs#C30BFA:ICMP In Msgs",
       "LINE1:outMsgs#FA0BAB:ICMP Out Msgs\r")
 
     # TCP Segs entrada/salida
-    ret = rrdtool.graph( "tcpSegs.png",
+    ret = rrdtool.graph( arch4Png,
       "--start",'1538358221',
   #    "--end","N",
       "--vertical-label=Bytes/s",
-      "DEF:inTcpSegs=tcpSegs.rrd:inTcpSegs:AVERAGE",
-      "DEF:outTcpSegs=tcpSegs.rrd:outTcpSegs:AVERAGE",
+      "DEF:inTcpSegs=" + arch4Rrd + ":inTcpSegs:AVERAGE",
+      "DEF:outTcpSegs=" + arch4Rrd + ":outTcpSegs:AVERAGE",
       "AREA:inTcpSegs#0BFAEA:TCP In Segs",
       "LINE1:outTcpSegs#0B4BFA:TCP Out Segs\r")
 
     # UDP Datagrams entrada/salida
-    ret = rrdtool.graph( "udpDatagrams.png",
+    ret = rrdtool.graph( arch5Png,
       "--start",'1538358221',
   #    "--end","N",
       "--vertical-label=Bytes/s",
-      "DEF:inDatagrams=udpDatagrams.rrd:inDatagrams:AVERAGE",
-      "DEF:outDatagrams=udpDatagrams.rrd:outDatagrams:AVERAGE",
+      "DEF:inDatagrams=" + arch5Rrd + ":inDatagrams:AVERAGE",
+      "DEF:outDatagrams=" + arch5Rrd + ":outDatagrams:AVERAGE",
       "AREA:inDatagrams#7A807E:In UDP Datgrams",
       "LINE1:outDatagrams#151817:Out UDP Datgrams\r")
     

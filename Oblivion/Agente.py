@@ -50,10 +50,10 @@ class Agente:
 	def setPuerto(self, puerto):
 		self.puerto =puerto
 
-	def monitorear(self):
-		archivoRrd()
-		t1 = threading.Thread(target = realizarConsultas, args = (self.comunidad, self.ip, self.puerto))
-		t2 = threading.Thread(target = crearGraficas)
+	def monitorear(self, numero):
+		archivoRrd(numero)
+		t1 = threading.Thread(target = realizarConsultas, args = (self.comunidad, self.ip, self.puerto, numero))
+		t2 = threading.Thread(target = crearGraficas, args = (numero))
 		t1.start()
 		t2.start()
 

@@ -186,23 +186,53 @@ class Admin:
         listaagentes.listaAgentes[0].monitorear()
 
     #Dar de baja agente (retorna booleano)
-        def eliminarDeHost(self, nombre):
-            archivo = open('/etc/hosts', 'r')
-            contenido = archivo.readlines()
-            cadenaCopia = ""
-            
-            #Busca el nombre para eliminarlo
-            for cadena in contenido:
-                if cadena.find(nombre) == -1: #Cuando encuentre el nombre no lo copia
-                    cadenaCopia += cadena
-            
-            archivo.close()
-            archivo = open('/etc/hosts', 'w')
-            archivo.write(cadenaCopia)
-            archivo.close()
+    def eliminarDeHost(self, nombre):
+        archivo = open('/etc/hosts', 'r')
+        contenido = archivo.readlines()
+        cadenaCopia = ""
+        
+        #Busca el nombre para eliminarlo
+        for cadena in contenido:
+            if cadena.find(nombre) == -1: #Cuando encuentre el nombre no lo copia
+                cadenaCopia += cadena
+        
+        archivo.close()
+        archivo = open('/etc/hosts', 'w')
+        archivo.write(cadenaCopia)
+        archivo.close()
 
-            return True
+        return True
 
+    #Obtiene información de página de Inicio
+    def infoInicio(self):
+
+        numeroAgentes = len(listaagentes.listaAgentes)
+        print("Dispositivos Monitorizados: " + str(numeroAgentes))
+
+        #obtiene la información de cada agente monitoreado
+        for i in range(0,len(listaagentes.listaAgentes)):
+            nombre = listaagentes.listaAgentes[i].getNombre();
+            print("Nombre: " + nombre)
+            if listaagentes.listaAgentes[i].getEstado() == 1 :
+                estatus = True
+                print("Estatus: Up")
+            else:
+                estatus = False
+                print("Estatus: Down")
+            intActivas = listaagentes.listaAgentes[i].getInterfacesactivas()
+            print("Interfaces Activas: " + str(intActivas))
+
+    def monitorearAgentes(self):
+
+        hilos = []
+
+        if len(listaagentes.listaAgentes) > 0 :
+            for i in range(0, len(listaagentes.listaAgentes)):
+                t1 = threading.Thread(target = listaagentes.listaAgentes[i].monitorear, args = (i+1))
+                hilos.append(t1)
+
+            for j in range(0, len(hilos)):
+                hilos[j].start()
 
 """
 a1 = Admin('stefan', '1234')
