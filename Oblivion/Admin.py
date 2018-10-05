@@ -1,3 +1,4 @@
+import threading
 from pysnmp.hlapi import *
 from Agente import Agente
 import listaagentes
@@ -183,7 +184,7 @@ class Admin:
         arrayContactInfo = listaagentes.consultaSNMP(comunidad, ip, "1.3.6.1.2.1.1.4.0", puerto).split(' ')
         print("La localizacion fisica es: " + arrayContactInfo[len(arrayContactInfo) - 1])
 
-        listaagentes.listaAgentes[0].monitorear()
+        #listaagentes.listaAgentes[0].monitorear()
 
     #Dar de baja agente (retorna booleano)
     def eliminarDeHost(self, nombre):
@@ -224,13 +225,17 @@ class Admin:
 
     def monitorearAgentes(self):
 
+        #arreglo de hilos
         hilos = []
 
+        #Por cada agente se crea un hilo
         if len(listaagentes.listaAgentes) > 0 :
             for i in range(0, len(listaagentes.listaAgentes)):
-                t1 = threading.Thread(target = listaagentes.listaAgentes[i].monitorear, args = (i+1))
+                #x = i+1
+                t1 = threading.Thread(target = listaagentes.listaAgentes[i].monitorear, args = [i+1])
                 hilos.append(t1)
 
+            #Se inician los hilos
             for j in range(0, len(hilos)):
                 hilos[j].start()
 
