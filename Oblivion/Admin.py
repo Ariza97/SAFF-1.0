@@ -239,6 +239,22 @@ class Admin:
             for j in range(0, len(hilos)):
                 hilos[j].start()
 
+    def monitorearProcesadores(self):
+
+        #arreglo de hilos
+        hilos = []
+
+        #Por cada agente se crea un hilo
+        if len(listaagentes.listaAgentes) > 0 :
+            for i in range(0, len(listaagentes.listaAgentes)):
+                #x = i+1
+                t1 = threading.Thread(target = listaagentes.listaAgentes[i].infoProcesadores, args = [i+1])
+                hilos.append(t1)
+
+            #Se inician los hilos
+            for j in range(0, len(hilos)):
+                hilos[j].start()
+
 """
 a1 = Admin('stefan', '1234')
 print(a1.getUser())

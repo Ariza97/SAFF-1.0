@@ -6,7 +6,7 @@ def crearGraficas(numero):
   
   tiempo_actual = int(time.time())
   tiempo_final = tiempo_actual - 86400
-  tiempo_inicial = tiempo_final - 25920000
+  tiempo_inicial = tiempo_final - 1300
 
   arch1Rrd = 'octets' + str(numero) + '.rrd'
   arch2Rrd = 'ipInReceives' + str(numero) + '.rrd'
@@ -22,7 +22,7 @@ def crearGraficas(numero):
   while 1:
     # Tráfico interfaces
     ret = rrdtool.graph( arch1Png,
-      "--start",'1538700634',
+      "--start",str(tiempo_inicial),
   #    "--end","N",
       "--vertical-label=Bytes/s",
       "DEF:inoctets=" + arch1Rrd + ":inoctets:AVERAGE",
@@ -32,7 +32,7 @@ def crearGraficas(numero):
 
     # Ip In Receives
     ret = rrdtool.graph( arch2Png,
-      "--start",'1538700634',
+      "--start",str(tiempo_inicial),
   #    "--end","N",
       "--vertical-label=Bytes/s",
       "DEF:inIpReceives=" + arch2Rrd + ":inIpReceives:AVERAGE",
@@ -40,7 +40,7 @@ def crearGraficas(numero):
 
     # ICMP Msgs entrada/salida
     ret = rrdtool.graph( arch3Png,
-      "--start",'1538700634',
+      "--start",str(tiempo_inicial),
   #    "--end","N",
       "--vertical-label=Bytes/s",
       "DEF:inMsgs=" + arch3Rrd + ":inMsgs:AVERAGE",
@@ -50,7 +50,7 @@ def crearGraficas(numero):
 
     # TCP Segs entrada/salida
     ret = rrdtool.graph( arch4Png,
-      "--start",'1538700634',
+      "--start",str(tiempo_inicial),
   #    "--end","N",
       "--vertical-label=Bytes/s",
       "DEF:inTcpSegs=" + arch4Rrd + ":inTcpSegs:AVERAGE",
@@ -60,7 +60,7 @@ def crearGraficas(numero):
 
     # UDP Datagrams entrada/salida
     ret = rrdtool.graph( arch5Png,
-      "--start",'1538700634',
+      "--start",str(tiempo_inicial),
   #    "--end","N",
       "--vertical-label=Bytes/s",
       "DEF:inDatagrams=" + arch5Rrd + ":inDatagrams:AVERAGE",

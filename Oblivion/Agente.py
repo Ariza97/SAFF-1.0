@@ -2,8 +2,11 @@ import threading
 from rrd1 import archivoRrd
 from rrd2 import realizarConsultas
 from rrd3 import crearGraficas
+from trendLineal import archivoProcesador
+from TrendUpdate import monitoreaProcesador
+from TrendGraph import crearGrafica
 
-class Agente:	
+class Agente:
 	def __init__(self, ip, nombre, comunidad, estado, version, puerto): 
 		self.ip =ip
 		self.nombre =nombre
@@ -57,5 +60,9 @@ class Agente:
 		t1.start()
 		t2.start()
 
-
-
+	def infoProcesadores(self, numero):
+		archivoProcesador(numero)
+		t1 = threading.Thread(target = monitoreaProcesador, args = (self.comunidad, self.ip, self.puerto, numero))
+		t2 = threading.Thread(target = crearGrafica, args = [numero])
+		t1.start()
+		t2.start()
