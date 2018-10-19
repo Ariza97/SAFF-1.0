@@ -5,6 +5,7 @@ from rrd3 import crearGraficas
 from trendLineal import archivoProcesador
 from TrendUpdate import monitoreaProcesador
 from TrendGraph import crearGrafica
+import subprocess
 
 class Agente:
 	def __init__(self, ip, nombre, comunidad, estado, version, puerto): 
@@ -53,6 +54,7 @@ class Agente:
 	def setPuerto(self, puerto):
 		self.puerto =puerto
 
+	#Generar gráficas de 5 datos de la MIB
 	def monitorear(self, numero):
 		archivoRrd(numero)
 		t1 = threading.Thread(target = realizarConsultas, args = (self.comunidad, self.ip, self.puerto, numero))
@@ -60,9 +62,42 @@ class Agente:
 		t1.start()
 		t2.start()
 
+	#Consultar actividad en nucleos del procesador
 	def infoProcesadores(self, numero):
-		archivoProcesador(numero)
-		t1 = threading.Thread(target = monitoreaProcesador, args = (self.comunidad, self.ip, self.puerto, numero))
-		t2 = threading.Thread(target = crearGrafica, args = [numero])
-		t1.start()
-		t2.start()
+
+		versionEnString = ""
+
+		if self.version == 1 :
+			versionEnString = "-v1"
+		else:
+			versionEnString = "-v2c"
+
+		print("Comunidad: " + self.comunidad + " VersionString: " + versionEnString)
+
+		# obtener resultado de snmpwalk
+		datos = subprocess.check_output('snmpwalk ' + versionEnString +' -c' + self.comunidad + ' ' + self.ip + ' 1.3.6.1.2.1.25.3.3.1.2', shell = True)
+		cadena = str(datos)
+
+		#Convertirlos a un array
+		arreglo = cadena.split()
+		procesadores = []
+		hilos = []
+
+        # Agregar a arreglo los procesadores en la MIB
+		for i in range (0,len(arreglo)):
+		    #Si hay un oid de procesador
+		    if arreglo[i] == "=":
+		        temp = arreglo[i-1].split(".")
+		        procesadores.append(temp[-1])
+
+		for i in range(0,len(procesadores)):
+			archivoProcesador(numero, procesadores[i])
+			t1 = threading.Thread(target = monitoreaProcesador, args = (self.comunidad, self.ip, self.puerto, numero, procesadores[i]))
+			t2 = threading.Thread(target = crearGrafica, args = (numero, procesadores[i]))
+			hilos.append(t1)
+			hilos.append(t2)
+			t1.start()
+			t2.start()
+
+		#for i in range(0,len(hilos)):
+		#	hilos[i].start()

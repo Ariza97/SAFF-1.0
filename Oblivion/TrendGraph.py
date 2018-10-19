@@ -2,10 +2,11 @@ import sys
 import rrdtool
 import time
 
-def crearGrafica(numero):
+def crearGrafica(numero, id):
 
-    archivoRrd = 'trend' + str(numero) + '.rrd'
-    archivoPng = 'trend' + str(numero) + '.png'
+    #print(str(numero))
+    archivoRrd = 'trend' + str(numero) + '-' + str(id) + '.rrd'
+    archivoPng = 'trend' + str(numero) + '-' + str(id) + '.png'
     
     ultima_lectura = int(rrdtool.last(archivoRrd))
     timepo_final = ultima_lectura
@@ -20,7 +21,7 @@ def crearGrafica(numero):
                          '--vertical-label', "Uso de CPU (%)",
                          '--lower-limit', '0',
                          '--upper-limit', '100',
-                         "DEF:carga=trend.rrd:CPUload:AVERAGE",
+                         "DEF:carga=" + archivoRrd + ":CPUload:AVERAGE",
                          "AREA:carga#00FF00:CPU load",
 
 

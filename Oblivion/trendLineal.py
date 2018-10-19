@@ -1,9 +1,9 @@
 
 import rrdtool
 
-def archivoProcesador(numero):
+def archivoProcesador(numero, procesador):
     
-    archivo = 'trend' + str(numero) + '.rrd'
+    archivo = 'trend' + str(numero) + '-' + str(procesador)+ '.rrd'
     ret = rrdtool.create(archivo,
                          "--start",'N',
                          "--step",'60',

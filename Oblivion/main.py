@@ -17,18 +17,21 @@ def main():
     if administrador.agregarAHostIP("localhost", "Stefan", "Stefan10", 1, 2, 161):
         print("Se agrego el agente 192.168.0.12")
 
-    if administrador.agregarAHostIP("192.168.0.12", "Stefan Windows", "Stefan", 1, 2, 161):
-        print("Se agrego el agente 192.168.0.12")
+    #if administrador.agregarAHostIP("192.168.0.12", "Stefan Windows", "Stefan", 1, 2, 161):
+    #    print("Se agrego el agente 192.168.0.12")
 
     #Mostrar datos de página de Inicio
     administrador.infoInicio()
 
     #Monitorear 
-    administrador.obtenerEstadoDispositivo("Stefan", "Stefan10", 1, 1, 161, "localhost" )
+    # administrador.obtenerEstadoDispositivo("Stefan", "Stefan10", 1, 1, 161, "localhost" )
 
-    administrador.obtenerEstadoDispositivo("Stefan Windows", "Stefan", 1, 1, 161, "192.168.0.12" )
+    # administrador.obtenerEstadoDispositivo("Stefan Windows", "Stefan", 1, 1, 161, "192.168.0.12" )
 
     #Monitorear todos los agentes
-    administrador.monitorearAgentes()
+    #administrador.monitorearAgentes()
+
+    #Monitorear los procesadores de cada agente
+    administrador.monitorearProcesadores()
 
 main()
