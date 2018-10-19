@@ -96,8 +96,8 @@ class Agente:
 			t2 = threading.Thread(target = crearGrafica, args = (numero, procesadores[i]))
 			hilos.append(t1)
 			hilos.append(t2)
-			t1.start()
-			t2.start()
+			#t1.start()
+			#t2.start()
 
-		#for i in range(0,len(hilos)):
-		#	hilos[i].start()
+		for i in range(0,len(hilos)):
+			hilos[i].start()

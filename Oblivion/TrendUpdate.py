@@ -14,8 +14,7 @@ def monitoreaProcesador(comunidad, ip, puerto, numero, id):
         carga_CPU = int(
             consultaSNMP(comunidad,ip,
                          oid, puerto)) #Información de procesos, sirve para linux, cambiar para otros sistemas
-        # cambiar aquí dependiendo el número de procesadores que tiene el agente
-
+        
         valor = "N:" + str(carga_CPU) #Hora del sistema más dato MIB obtenido
         print (valor)
         rrdtool.update(archivoRrd, valor)
