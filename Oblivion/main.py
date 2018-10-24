@@ -32,6 +32,6 @@ def main():
     #administrador.monitorearAgentes()
 
     #Monitorear los procesadores de cada agente
-    administrador.predProcesadores()
+    administrador.predecirProcesadores()
 
 main()
