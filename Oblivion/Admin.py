@@ -53,36 +53,51 @@ class Admin:
 
         #Agregar el elemento a host
         archivo = archivo = open('/etc/hosts', 'r')
-
         contenido = archivo.readlines()
 
         #Activar bandera de escritura
         puedeEscribir = True
         cadenaCopia = ""
 
+        #Verificar si el agente que se quiere agregar no existe
+        #con anterioridad
+        existeAgente = False
+
         for cadena in contenido:
-            if cadena.find('::') != -1: #Si si encuentra la cadena
-                if puedeEscribir:
-                    cadenaCopia += ip + "\t" + nombre + "\n"
-                    puedeEscribir = False
-                    cadenaCopia += cadena
+            if ip in cadena:
+                existeAgente = True
+                break
+
+        #Si no existe el agente agregarlo
+        if not existeAgente:
+            for cadena in contenido:
+                if cadena.find('::') != -1: #Si si encuentra la cadena
+                    if puedeEscribir:
+                        cadenaCopia += ip + "\t" + nombre + "\n"
+                        puedeEscribir = False
+                        cadenaCopia += cadena
+                    else:
+                        cadenaCopia += cadena
                 else:
                     cadenaCopia += cadena
-            else:
-                cadenaCopia += cadena
+            
 
 
-        #Sobreescribir el archivo en hosts
+        #Cerrar el streaming al archivo
         archivo.close()
-        archivo = open('/etc/hosts', 'w')
-        archivo.write(cadenaCopia)
-        archivo.close()
-
-        #Agregar el agente
-        nuevoAgente = Agente(ip, nombre, comunidad, estado, version, puerto)
-        listaagentes.listaAgentes.append(nuevoAgente)
-
+        #Sobreescribir el archivo en host si no existe el agente
+        if not existeAgente: 
+            archivo = open('/etc/hosts', 'w')
+            archivo.write(cadenaCopia)
+            archivo.close()
+            #Agregar el agente
+            nuevoAgente = Agente(ip, nombre, comunidad, estado, version, puerto)
+            listaagentes.listaAgentes.append(nuevoAgente)
+            print("Se agrego el agente")
+        else:
+            print("El agente ya existe, no se agrego")
         return True
+
     #Dar de alta Agente (retorna booleano)
     def agregarAHost(self, nombre, comunidad, estado, version, puerto):
         #Verificar Version
@@ -109,7 +124,7 @@ class Admin:
         diccionarioHosts = {}
 
         for i in lineasDeHost:
-            if "::" not in i:
+            if "\t" in i:
                 a = i.split("\t")
                 diccionarioHosts[a[1]] = a[0]
         
@@ -270,6 +285,32 @@ class Admin:
             #Se inician los hilos
             for j in range(0, len(hilos)):
                 hilos[j].start()
+
+    def cargarAgentesGuardados(self):
+        
+        archivo = open('/etc/hosts', 'r')
+        lineasDeHost = archivo.readlines()
+        lineasDeHost = [line.strip() for line in lineasDeHost
+                            if not line.startswith('#') and line.strip() != '']
+
+        arregloHost = []
+        for linea in lineasDeHost:
+            nombreC = linea.split('#')[0].split()[1:]
+            arregloHost.extend(nombreC)
+
+        #Crear un diccionario para almacenar
+        diccionarioHosts = {}
+
+        for i in lineasDeHost:
+            if "\t" in i:
+                a = i.split("\t")
+                diccionarioHosts[a[1]] = a[0]
+        
+        return diccionarioHosts
+        print(diccionarioHosts)
+        
+
+
 
 """
 a1 = Admin('stefan', '1234')
