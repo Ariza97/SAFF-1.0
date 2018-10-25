@@ -12,6 +12,8 @@ def crearGrafica(numero, id):
     ultima_lectura = int(rrdtool.last(archivoRrd))
     timepo_final = ultima_lectura
     tiempo_inicial = timepo_final - 3600
+    #variable de tiempo para no enviar demasiados correos
+    send = 0
 
     while 1:
         ret = rrdtool.graphv( archivoPng,
@@ -31,14 +33,16 @@ def crearGrafica(numero, id):
 
                          #"VDEF:CPUlast=carga,LAST",
                          "VDEF:CPUmin=carga,MINIMUM",
-                         #"VDEF:CPUavg=carga,AVERAGE",
+                         "VDEF:CPUavg=carga,AVERAGE",
                          "VDEF:cargaSTDEV=carga,STDEV",
                          "VDEF:cargaLAST=carga,LAST",
                          "VDEF:CPUmax=carga,MAXIMUM",
-                         "AREA:carga#00FF00:CPU load",
+                         "AREA:carga#00FF00:CPU Carga Elevada",
                          "AREA:carga60#FF9F00:Carga menor al 60%",
-                         "HRULE:60#FF0000:Umbral 1",
-                         #    "COMMENT:                         Now          Min             Avg             Max//n",
+                         "HRULE:60#FF0000:Alerta Sobrecarga",
+                         "HRULE:50#00FF00:Uso Medio",
+                         "HRULE:45#0000FF:Uso Moderado",
+                         "COMMENT:                         Now          Min             Avg             Max//n",
                          #"GPRINT:CPUlast:%12.0lf%s",
                          #"GPRINT:CPUmin:%10.0lf%s",
                          #"GPRINT:CPUavg:%13.0lf%s",
@@ -52,15 +56,19 @@ def crearGrafica(numero, id):
                          #'CDEF:avg2=carga,POP,a,COUNT,*,b,+',
                          #"LINE2:avg2#FFBB00" )
                          )
-        print (ret)
-        print(ret.keys())
-        print(ret.items())
+        #print (ret)
+        #print(ret.keys())
+        #print(ret.items())
 
         ultimo_valor=float(ret['print[0]'])
         #print ("ultimo_valor = " + str(ultimo_valor))
-        if ultimo_valor>60:
+        if ultimo_valor>60 and send == 0:
             send_alert_attached("Carga alta de nucleo: " + id, archivoPng)
-
+        #else:
+        #    send = 0
+        send += 15
+        if(send > 300):
+            send = 0
         """for x in range(0,7):
             res= 'legend['+str(x)+']'
             print(ret[res])"""

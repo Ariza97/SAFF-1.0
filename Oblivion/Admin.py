@@ -65,6 +65,7 @@ class Admin:
 
         for cadena in contenido:
             if ip in cadena:
+                print("cadena " + cadena)
                 existeAgente = True
                 break
 
@@ -76,10 +77,12 @@ class Admin:
                         cadenaCopia += ip + "\t" + nombre + "\n"
                         puedeEscribir = False
                         cadenaCopia += cadena
+                        print("cadena " + cadena)
                     else:
                         cadenaCopia += cadena
                 else:
                     cadenaCopia += cadena
+                    print("cadena " + cadena)
         else:
             return False
             
@@ -246,9 +249,11 @@ class Admin:
 
         #arreglo de hilos
         hilos = []
+        print("Entra")
 
         #Por cada agente se crea un hilo
         if len(listaagentes.listaAgentes) > 0 :
+            print("Entra")
             for i in range(0, len(listaagentes.listaAgentes)):
                 #x = i+1
                 t1 = threading.Thread(target = listaagentes.listaAgentes[i].monitorear, args = [i+1])

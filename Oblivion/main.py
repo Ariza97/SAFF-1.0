@@ -14,7 +14,7 @@ def main():
     #Mostrar datos de página de Inicio
     #administrador.infoInicio()
     #Agregar un agente
-    if administrador.agregarAHostIP("192.168.0.16", "beko", "crisalgarolcomunity", 1, 2, 161):
+    if administrador.agregarAHostIP("127.0.0.1", "Stefan", "Stefan10", 1, 2, 161):
         print("Se agrego el agente 192.168.0.16")
     else:
         print("El agente ya esta agregado")
@@ -34,6 +34,9 @@ def main():
 
     #Monitorear todos los agentes
     #administrador.monitorearAgentes()
+
+    #Monitorear nucleos
+    administrador.monitorearProcesadores()
 
     #Monitorear los procesadores de cada agente
     #administrador.predecirProcesadores()

@@ -4,8 +4,8 @@ from email.mime.multipart import MIMEMultipart
 
 COMMASPACE = ', '
 # Define params
-rrdpath = '/home/stefan/Documents/Redes3/Herramineta/SAFF-1.0/Oblivion/'
-pngpath = '/home/stefan/Documents/Redes3/Herramineta/SAFF-1.0/Oblivion/'
+rrdpath = '/home/stefan/Desktop/Oblivion/'
+pngpath = '/home/stefan/Desktop/Oblivion/'
 fname = 'netP.rrd'
 width = '500'
 height = '200'
