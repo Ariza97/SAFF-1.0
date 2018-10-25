@@ -14,10 +14,10 @@ def main():
     #Mostrar datos de página de Inicio
     #administrador.infoInicio()
     #Agregar un agente
-    """if administrador.agregarAHostIP("localhost", "Stefan", "Stefan10", 1, 2, 161):
-        print("Se agrego el agente 192.168.0.12")
+    if administrador.agregarAHostIP("192.168.0.16", "beko", "crisalgarolcomunity", 1, 2, 161):
+        print("Se agrego el agente 192.168.0.16")
     else:
-        print("No se agrego el agente error")"""
+        print("El agente ya esta agregado")
     
     print(administrador.cargarAgentesGuardados())
 

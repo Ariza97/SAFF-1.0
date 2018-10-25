@@ -80,6 +80,8 @@ class Admin:
                         cadenaCopia += cadena
                 else:
                     cadenaCopia += cadena
+        else:
+            return False
             
 
 
@@ -94,9 +96,11 @@ class Admin:
             nuevoAgente = Agente(ip, nombre, comunidad, estado, version, puerto)
             listaagentes.listaAgentes.append(nuevoAgente)
             print("Se agrego el agente")
+            return True
+            
         else:
             print("El agente ya existe, no se agrego")
-        return True
+            return False
 
     #Dar de alta Agente (retorna booleano)
     def agregarAHost(self, nombre, comunidad, estado, version, puerto):
@@ -307,7 +311,6 @@ class Admin:
                 diccionarioHosts[a[1]] = a[0]
         
         return diccionarioHosts
-        print(diccionarioHosts)
         
 
 
