@@ -295,6 +295,10 @@ class Admin:
             for j in range(0, len(hilos)):
                 hilos[j].start()
 
+    #Prediccion de variables
+    def predecirVariable(self):
+        listaagentes.listaAgentes[0].Predecir()
+
     def cargarAgentesGuardados(self):
         
         archivo = open('/etc/hosts', 'r')

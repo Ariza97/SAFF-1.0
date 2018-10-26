@@ -5,7 +5,8 @@ import time
 def crearGraficas(numero):
   
   tiempo_actual = int(time.time())
-  tiempo_final = tiempo_actual - 86400
+#tiempo_final = tiempo_actual - 86400
+  tiempo_final = tiempo_actual
   tiempo_inicial = tiempo_final - 1300
 
   arch1Rrd = 'octets' + str(numero) + '.rrd'

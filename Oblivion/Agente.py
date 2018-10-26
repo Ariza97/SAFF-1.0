@@ -8,6 +8,7 @@ from TrendGraph import crearGrafica
 from trendLinealPred import archivoProcesadorPred
 from TrendUpdatePred import predProcesador
 from TrendMinimum import dibujarGrafica
+from Predecir import prediccion
 import subprocess
 
 class Agente:
@@ -106,7 +107,7 @@ class Agente:
 			hilos[i].start()
 
 
-	#Predicción
+	#Minimos cuadrados CPU
 	def predProcesadores(self, numero):
 
 		versionEnString = ""
@@ -145,3 +146,7 @@ class Agente:
 
 		for i in range(0,len(hilos)):
 			hilos[i].start()
+
+	#Predicción por minimos cuadrados
+	def Predecir(self):
+		prediccion("recursos.rrd", "25/10/2018", "25/10/2018", "18:16:00", "19:00:00", "CPU1load", "95")

@@ -36,9 +36,13 @@ def main():
     #administrador.monitorearAgentes()
 
     #Monitorear nucleos
-    administrador.monitorearProcesadores()
+    #administrador.monitorearProcesadores()
 
     #Monitorear los procesadores de cada agente
     #administrador.predecirProcesadores()
+
+    #Predicción sobre variables
+    administrador.predecirVariable()
+
 
 main()
